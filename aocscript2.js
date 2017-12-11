@@ -12,6 +12,10 @@
 
 // What is the checksum for the spreadsheet in your puzzle input?
 
+var testingSheet = `5	1	9	5
+7	5	3
+2	4	6	8`;
+
 var finalSpreadsheet = `3458	3471	163	1299	170	4200	2425	167	3636	4001	4162	115	2859	130	4075	4269
 2777	2712	120	2569	2530	3035	1818	32	491	872	113	92	2526	477	138	1360
 2316	35	168	174	1404	1437	2631	1863	1127	640	1745	171	2391	2587	214	193
@@ -42,28 +46,25 @@ function processSheet(sheet) {
 		
 		//Temp storage for each line broken into an array
 		var arrayLineSplit = arrayLine[i].split('\t');
+		// console.log(arrayLineSplit);
 
 		//Store the highest and lowest number for each line
-		var highestNumber;
-		var lowestNumber;
+		var highestNumber = arrayLineSplit[0]
+		var lowestNumber = arrayLineSplit[0];
 		
 		//Loop through split line to fine highest and lowest number
 		for(var j = 0; j < arrayLineSplit.length; j++) {
-			//Can assume first number is both highest and lowest
-			if (j == 0) {
-				highestNumber = arrayLineSplit[0];
-				lowestNumber = arrayLineSplit[0];
-			}
-
 			//If a number is higher/lower than store it instead
-			if(highestNumber < arrayLineSplit[j]) {
-				highestNumber = arrayLineSplit[j];
+			if(parseInt(arrayLineSplit[j]) > highestNumber) {
+				highestNumber = parseInt(arrayLineSplit[j]);
 			}
 
-			if(lowestNumber > arrayLineSplit[j]) {
-				lowestNumber = arrayLineSplit[j];	
+			if(parseInt(arrayLineSplit[j]) < lowestNumber) {
+				lowestNumber = parseInt(arrayLineSplit[j]);	
 			}
-		}	
+		}
+
+		console.log("Highest: " + highestNumber + ", Lowest: " + lowestNumber);
 		
 		//Store the difference between the high and low numbers
 		tempChecksumNumbers.push(highestNumber - lowestNumber);
