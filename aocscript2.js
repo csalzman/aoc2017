@@ -34,7 +34,7 @@ var finalSpreadsheet = `3458	3471	163	1299	170	4200	2425	167	3636	4001	4162	115	
 837	80	95	281	652	822	1028	1295	101	1140	88	452	85	444	649	1247`;
 
 
-function processSheet(sheet) {
+function processChecksum(sheet) {
 	//Split sheet into lines
 	var arrayLine = sheet.split('\n');
 	
@@ -80,4 +80,68 @@ function processSheet(sheet) {
 	return finalChecksum;
 }
 
-console.log(processSheet(finalSpreadsheet));
+// "Based on what we're seeing, it looks like all the User wanted is some information about the evenly divisible values in the spreadsheet. Unfortunately, none of us are equipped for that kind of calculation - most of us specialize in bitwise operations."
+
+// It sounds like the goal is to find the only two numbers in each row where one evenly divides the other - that is, where the result of the division operation is a whole number. They would like you to find those numbers on each line, divide them, and add up each line's result.
+
+// For example, given the following spreadsheet:
+
+// 5 9 2 8
+// 9 4 7 3
+// 3 8 6 5
+// In the first row, the only two numbers that evenly divide are 8 and 2; the result of this division is 4.
+// In the second row, the two numbers are 9 and 3; the result is 3.
+// In the third row, the result is 2.
+// In this example, the sum of the results would be 4 + 3 + 2 = 9.
+
+var testingDivisibleSheet = `5	9	2	8
+9	4	7	3
+3	8	6	5`;
+
+function processDivisibleChecksum(sheet) {
+	//Split sheet into lines
+	var arrayLine = sheet.split('\n');
+	
+	//Store for checksum numbers
+	var tempChecksumNumbers = [];
+
+	//Loop through each line
+	for(var i = 0; i < arrayLine.length; i++) {
+		
+		//Temp storage for each line broken into an array
+		var arrayLineSplit = arrayLine[i].split('\t');
+		// console.log(arrayLineSplit);
+
+		//Store the highest and lowest divisible number for each line
+		var divisibleLow;
+		var divisibleHigh;
+		
+		//Loop through split line to find the two numbers divisible by one another
+		for(var j = 0; j < arrayLineSplit.length; j++) {
+			//Check number against all other numbers in line for divisibility
+			for(var k = 0; k < arrayLineSplit.length; k++) {
+				if(j != k && arrayLineSplit[j] % arrayLineSplit[k] == 0) {
+					divisibleHigh = parseInt(arrayLineSplit[j]);
+					divisibleLow = parseInt(arrayLineSplit[k]);
+				}
+			}
+		}
+
+		console.log("Highest: " + divisibleHigh + ", Lowest: " + divisibleLow);
+		
+		//Store the difference between the high and low numbers
+		tempChecksumNumbers.push(divisibleHigh / divisibleLow);
+	}
+
+	//Add it all up
+	var finalChecksum = 0;
+
+	for(var k = 0; k < tempChecksumNumbers.length; k++) {
+		finalChecksum += tempChecksumNumbers[k];
+	}
+
+	return finalChecksum;
+}
+console.log(processDivisibleChecksum(finalSpreadsheet));
+
+// console.log(processChecksum(finalSpreadsheet));
