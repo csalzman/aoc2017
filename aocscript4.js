@@ -561,7 +561,64 @@ function processListOfPassPhrases(list) {
 	return counter
 }
 
-console.log(processListOfPassPhrases(inputList));
+// console.log(processListOfPassPhrases(inputList));
+
+
+
+
+// --- Part Two ---
+
+// For added security, yet another system policy has been put in place. Now, a valid passphrase must contain no two words that are anagrams of each other - that is, a passphrase is invalid if any word's letters can be rearranged to form any other word in the passphrase.
+
+// For example:
+
+// abcde fghij is a valid passphrase.
+// abcde xyz ecdab is not valid - the letters from the third word can be rearranged to form the first word.
+// a ab abc abd abf abj is a valid passphrase, because all letters need to be used when forming another word.
+// iiii oiii ooii oooi oooo is valid.
+// oiii ioii iioi iiio is not valid - any of these words can be rearranged to form any other word.
+// Under this new system policy, how many passphrases are valid?
+
+//Function to check for anagrams within a passphrase
+function checkForAnagrams(str) {
+	//Split up the passphrase into words
+	var individualWords = str.split(" ");
+
+	//Alphabetize letters in each word
+	for(var i = 0; i < individualWords.length; i++) {
+		var tempArr = individualWords[i].split("");
+		tempArr.sort();
+		individualWords[i] = tempArr.join("");
+	}
+
+	//Check for words matching if they do then return false
+	for(var j = 0; j < individualWords.length; j++) {
+		for(var k = 0; k < individualWords.length; k++) {
+			if(j != k && individualWords[j] == individualWords[k]) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+function processListOfPassPhrasesAnagrams(list) {
+	var listSplit = list.split("\n");
+
+	var counter = 0;
+
+	for (var i = 0; i < listSplit.length; i++) {
+		if(checkForAnagrams(listSplit[i])) {
+			counter++;
+		}
+	}
+
+	return counter
+}
+
+console.log(processListOfPassPhrasesAnagrams(inputList));
+
+
 
 
 
