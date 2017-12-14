@@ -595,11 +595,11 @@ function checkForAnagrams(str) {
 	for(var j = 0; j < individualWords.length; j++) {
 		for(var k = 0; k < individualWords.length; k++) {
 			if(j != k && individualWords[j] == individualWords[k]) {
-				return true;
+				return false;
 			}
 		}
 	}
-	return false;
+	return true;
 }
 
 function processListOfPassPhrasesAnagrams(list) {
