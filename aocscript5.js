@@ -34,6 +34,42 @@ function jumps(maze) {
 	return counter;
 }
 
+function jumpsStrangePart2(maze) {
+
+	//Split up maze
+	maze = maze.split("\n");
+	for(var i = 0; i < maze.length; i++) {
+		maze[i] = parseInt(maze[i]);
+	}
+
+	//Temp storage of what spot you're on
+	//Start at the beginning
+	var standingSpot = 0;
+
+	var counter = 0;
+
+	while(maze[standingSpot] != undefined) {
+		//Change the number now while we have a good reference to it
+		if(maze[standingSpot] >= 3) {
+			maze[standingSpot] -= 1;	
+
+			//Move distance based on spot you're on but less the change
+			standingSpot += maze[standingSpot] + 1;
+		}
+		else {
+			maze[standingSpot] += 1;	
+
+			//Move distance based on spot you're on but less the change
+			standingSpot += maze[standingSpot] - 1;	
+		}
+
+		//Increment jump counter
+		counter++;
+	}
+
+	return counter;
+}
+
 
 var mazeInput = `2
 2
@@ -1106,4 +1142,4 @@ var mazeInput = `2
 -400
 -297`;
 
-console.log(jumps(mazeInput));
+console.log(jumpsStrangePart2(mazeInput));
