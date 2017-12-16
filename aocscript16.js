@@ -105,6 +105,10 @@ function onebillion(times, moveList, lineup) {
 
 	for(var i = 0; i < times; i ++) {
 		lineup = dance(moveList, lineup);
+
+		if(i % 100 == 0) {
+			console.log(i);
+		}
 	}
 
 	return lineup;
@@ -112,4 +116,4 @@ function onebillion(times, moveList, lineup) {
 
 // console.log(dance(moveSet, trueLineup));
 
-console.log(onebillion(100, moveSet, trueLineup));
+console.log(onebillion(1000, moveSet, trueLineup));
