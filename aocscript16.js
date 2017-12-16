@@ -101,4 +101,15 @@ function dance(moveList, lineup) {
 	return lineup;
 }
 
-console.log(dance(moveSet, trueLineup));
+function onebillion(times, moveList, lineup) {
+
+	for(var i = 0; i < times; i ++) {
+		lineup = dance(moveList, lineup);
+	}
+
+	return lineup;
+}
+
+// console.log(dance(moveSet, trueLineup));
+
+console.log(onebillion(100, moveSet, trueLineup));
